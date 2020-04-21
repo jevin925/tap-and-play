@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Circles</title>
+	<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="paper-full.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.js"></script>
+	<link rel="stylesheet" type="text/css" href="patatap.css">
+
+	<script type="text/paperscript" canvas="mycanvas">
+		var keyData = {
+			q: {
+				sound: new Howl({
+		  		src: ['sounds/bubbles.mp3']
+				}),
+				color: '#1abc9c'
+			},
+			w: {
+				sound: new Howl({
+		  	    src: ['sounds/clay.mp3']
+				}),
+				color: '#2ecc71'
+			},
+			e: {
+				sound: new Howl({
+		  		src: ['sounds/confetti.mp3']
+				}),
+				color: '#3498db'
+			},
+			r: {
+				sound: new Howl({
+		  		src: ['sounds/corona.mp3']
+				}),
+				color: '#9b59b6'
+			},
+				t: {
+				sound: new Howl({
+		  	    src: ['sounds/dotted-spiral.mp3']
+				}),
+				color: '#34495e'
+			},
+			y: {
+				sound: new Howl({
+		  		src: ['sounds/flash-1.mp3']
+				}),
+				color: '#16a085'
+			},
+			u: {
+				sound: new Howl({
+		  		src: ['sounds/flash-2.mp3']
+				}),
+				color: '#27ae60'
+			},
+			i: {
+				sound: new Howl({
+		  		src: ['sounds/flash-3.mp3']
+				}),
+				color: '#2980b9'
+			},
+			o: {
+				sound: new Howl({
+					src: ['sounds/glimmer.mp3']
+				}),
+				color: '#8e44ad'
+			},
+			p: {
+				sound: new Howl({
+		  		src: ['sounds/moon.mp3']
+				}),
+				color: '#2c3e50'
+			},
+			a: {
+				sound: new Howl({
+		  		src: ['sounds/pinwheel.mp3']
+				}),
+				color: '#f1c40f'
+			},
+			s: {
+				sound: new Howl({
+		  		src: ['sounds/piston-1.mp3']
+				}),
+				color: '#e67e22'
+			},
+				d: {
+				sound: new Howl({
+		  		src: ['sounds/piston-2.mp3']
+				}),
+				color: '#e74c3c'
+			},
+			f: {
+				sound: new Howl({
+		  		src: ['sounds/prism-1.mp3']
+				}),
+				color: '#95a5a6'
+			},
+			g: {
+				sound: new Howl({
+		  		src: ['sounds/prism-2.mp3']
+				}),
+				color: '#f39c12'
+			},
+			h: {
+				sound: new Howl({
+		  		src: ['sounds/prism-3.mp3']
+				}),
+				color: '#d35400'
+			},
+			j: {
+				sound: new Howl({
+		  		src: ['sounds/splits.mp3']
+				}),
+				color: '#1abc9c'
+			},
+			k: {
+				sound: new Howl({
+		  		src: ['sounds/squiggle.mp3']
+				}),
+				color: '#2ecc71'
+			},
+			l: {
+				sound: new Howl({
+		  		src: ['sounds/strike.mp3']
+				}),
+				color: '#3498db'
+			},
+			z: {
+				sound: new Howl({
+		  	    src: ['sounds/suspension.mp3']
+				}),
+				color: '#9b59b6'
+			},
+			x: {
+				sound: new Howl({
+		  		src: ['sounds/timer.mp3']
+				}),
+				color: '#34495e'
+			},
+			c: {
+				sound: new Howl({
+		  		src: ['sounds/ufo.mp3']
+				}),
+				color: '#16a085'
+			},
+			v: {
+				sound: new Howl({
+		  		src: ['sounds/veil.mp3']
+				}),
+				color: '#27ae60'
+			},
+			b: {
+				sound: new Howl({
+		  		src: ['sounds/wipe.mp3']
+				}),
+				color: '#2980b9'
+			},
+			n: {
+				sound: new Howl({
+				src: ['sounds/zig-zag.mp3']
+				}),
+				color: '#8e44ad'
+			},
+			m: {
+				sound: new Howl({
+		  		src: ['sounds/moon.mp3']
+				}),
+				color: '#2c3e50'
+			}
+		}
+		
+		var shapes = [];
+
+      //  var canvas = document.querySelector("canvas");
+      //creating a Circle
+      function circleShape(key, point){
+        var newCircle = new Path.Circle(point, 500);
+        newCircle.fillColor = keyData[key].color;
+        keyData[key].sound.play();
+        shapes.push(newCircle);
+      }
+      //creating a triangle
+      function triangleShape(key, point){
+        var triangle = new Path.RegularPolygon(point, 3, 300);
+        triangle.fillColor = keyData[key].color;
+        keyData[key].sound.play();
+        shapes.push(triangle);
+      }
+      //creating a decagon
+      function decagonShape(key, point){
+        var decagon = new Path.RegularPolygon(point, 10, 400);
+        decagon.fillColor = keyData[key].color;
+        keyData[key].sound.play();
+        shapes.push(decagon);
+      }
+      //creating a star
+      function starShape(key, point){
+        var points = 12;
+        var radius1 = 250;
+        var radius2 = 400;
+        var star = new Path.Star(point, points, radius1, radius2);
+        star.fillColor = keyData[key].color;
+        keyData[key].sound.play();
+        shapes.push(star);
+
+      }
+
+		function onKeyDown(event) {
+				var key= event.key;
+				if(keyData[key]){
+				var maxPoint = new Point(view.size.width, view.size.height);
+				var randomPoint = Point.random();
+				var point = maxPoint * randomPoint;
+				if(key === "l"|| key === "f" || key ==="g" || key === "r" || key === "i"){
+            		triangleShape(key, point);
+          		}else if(key === "b"|| key === "q" || key ==="h" || key === "e" || key === "j"){
+            		circleShape(key, point);
+          		}else if(key === "k"|| key === "a" || key ==="u" || key === "n" || key === "z"){
+            		starShape(key, point);
+          		}else if(key === "p"|| key === "x" || key ==="d" || key === "s" || key === "t"){
+            		decagonShape(key, point);
+          		}else if(key === "m"|| key === "v" || key ==="c" || key === "w" || key === "y" || key === "o"){
+            		starShape(key, point);
+          		}
+
+        }
+
+      }
+
+
+
+      function onFrame(event) {
+        for(var i = 0; i < shapes.length; i++){
+          shapes[i].fillColor.hue += 1;
+          shapes[i].scale(.9);
+          if(shapes[i].area < 1){
+            shapes[i].remove();
+            shapes.splice(i, 1);
+            i--;
+          }
+        }
+
+      }
+
+			
+	</script>
+</head>
+<body>
+	<h1>Press A-Z any Key</h1>
+	<canvas id="mycanvas" resize></canvas>
+	<script type="text/javascript" src="patatap.js"></script>
+</body>
+</html>
